@@ -1,0 +1,134 @@
+{
+	"layer": "top",	
+	"position": "bottom",
+    "height": 26,
+
+    "modules-left": ["hyprland/workspaces", "custom/scratch", "hyprland/window"],
+    "modules-center": [],
+    "modules-right": ["network", "temperature", "custom/updates", "backlight", "pulseaudio", "battery", "clock", "tray"],
+
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+          "active": "",
+          "default": ""
+
+        },
+            "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        },    
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "on-click": "activate"
+    },
+
+
+	"hyprland/window": {
+    	"format": "{}",
+    	"max-length": 150
+},
+
+
+	"custom/scratch": {
+   		"interval": 3,
+   		"exec": "swaymsg -t get_tree | jq 'recurse(.nodes[]) | first(select(.name==\"__i3_scratch\")) | .floating_nodes | length | select(. >= 0)'",
+   		"format": "^{}", 
+   		"on-click": "swaymsg 'scratchpad show'",
+   		"on-click-right": "swaymsg 'move scratchpad'"
+},
+
+    "custom/updates": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "interval": 60,
+        "tooltip": true,
+        // "tooltip-format": "{}",
+        // "exec-tooltip": "~/.config/waybar/scripts/updates.sh tooltip"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 15
+},
+
+
+    "clock": {
+        "format": "{:%a %R %p}",
+        "interval": 30
+},
+
+    
+    "battery": {
+        "bat": "BAT0",
+        "states": {
+              "full": 99,
+              "good": 98,
+              "normal": 98,
+              "warning": 20,
+              "critical": 20
+},
+
+        "format": "{capacity}% {icon}",
+        "format-good": "{capacity}% {icon}", 
+        "format-full": "{capacity}%  ",
+        "format-icons": ["", "", "", "", ""],
+        "interval": 30
+},
+
+
+    "network": {
+        // "interface": "wlp2s0*", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "format-ethernet": "{ipaddr}/{cidr} ", 
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}",
+        "interval": 1
+    },
+
+    "temperature": {
+	   	"thermal-zone": 0,
+		"format": "{temperatureC}°C {icon}",
+		"format-icons":[""],
+		"interval": 30
+},
+
+
+	"backlight": {
+    	"device": "intel_backlight",
+    	"format": "{percent}% {icon}",
+    	"format-icons": ["", ""],
+    	"interval": 60
+},
+
+
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": " ",
+            "default": ["", "", " "]
+        },
+        "on-click": "pavucontrol"
+    },
+
+}
+
+}
